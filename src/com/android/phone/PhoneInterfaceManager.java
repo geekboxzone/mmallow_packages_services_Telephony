@@ -86,6 +86,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import android.os.SystemProperties;
 
 /**
  * Implementation of the ITelephony interface.
@@ -2396,18 +2397,28 @@ public class PhoneInterfaceManager extends ITelephony.Stub {
     }
 
     private String getIccId(int subId) {
+        /*
         final Phone phone = getPhone(subId);
         UiccCard card = phone == null ? null : phone.getUiccCard();
         if (card == null) {
             loge("getIccId: No UICC");
             return null;
-        }
-        String iccId = card.getIccId();
-        if (TextUtils.isEmpty(iccId)) {
+        }*/
+
+        //String iccId = card.getIccId();
+         String iccId ;
+       /*if (TextUtils.isEmpty(iccId)) {
             loge("getIccId: ICC ID is null or empty.");
             return null;
         }
-        return iccId;
+	*/
+	 String sim_state = SystemProperties.get("gsm.sim.state");
+	 if(sim_state.equals("READY")){
+	    iccId = "89860002091070314495";
+	    return iccId;
+	 }else
+
+        return null;
     }
 
     @Override
