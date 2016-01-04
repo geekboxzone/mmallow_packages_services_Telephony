@@ -1255,7 +1255,8 @@ public class PhoneInterfaceManager extends ITelephony.Stub {
     private boolean isRadioOnForSubscriber(int subId) {
         final Phone phone = getPhone(subId);
         if (phone != null) {
-            return phone.getServiceState().getState() != ServiceState.STATE_POWER_OFF;
+            return (phone.getServiceState().getState() != ServiceState.STATE_POWER_OFF)
+                   && (phone.getServiceState().getState() != ServiceState.STATE_OUT_OF_SERVICE);
         } else {
             return false;
         }
